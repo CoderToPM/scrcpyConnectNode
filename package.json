@@ -1,0 +1,21 @@
+{
+  "name": "nodestream",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "express-ws": "^4.0.0",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1",
+    "pug": "^2.0.4",
+    "socket.io": "^2.2.0",
+    "socket.io-client": "^2.2.0",
+    "stream-split": "^1.1.0",
+    "uws": "^9.14.0"
+  }
+}

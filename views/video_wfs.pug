@@ -1,0 +1,32 @@
+doctype html
+html
+    head
+        meta(charset="utf-8")
+        |
+        title video stream
+        |
+        style(type="text/css").
+            video.rotate180 {
+                width: 100%;
+                height: 100%;
+                transform: rotateX(180deg);
+                -moz-transform: rotateX(180deg);
+                -webkit-transform: rotateX(180deg);
+                -o-transform: rotateX(180deg);
+                -ms-transform: rotateX(180deg);
+            }
+        script(type="text/javascript",src="javascripts/wfs.js")
+    body
+        div(class="wfsjs")
+            video(id="video1",autoplay,class="rotate180")
+            div(class="ratio")
+    script.
+        window.onload = function () {
+            if (Wfs.isSupported()) {
+
+                var video1 = document.getElementById("video1"),
+                    wfs = new Wfs();
+
+                wfs.attachMedia(video1, 'chX','H264Raw','play2');
+            }
+        };

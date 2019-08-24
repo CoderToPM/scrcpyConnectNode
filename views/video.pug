@@ -1,0 +1,70 @@
+doctype html
+html
+    head
+        meta(charset="utf-8")
+        |
+        title video stream
+        |
+        style(type="text/css").
+            html, body{
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+        script(type="text/javascript",src="javascripts/WSAvcPlayer.js")
+        //script(type="text/javascript",src="javascripts/http-live-player.js")
+
+    body
+        button(type="button",onclick="wsavc.send('custom_event_from_client',{ hello:'world' })")
+            |Send event to server
+        br
+        p(id='frame_buffer')
+        br
+        div(style="width:100px; height:600px;")
+            canvas(id='cam')
+
+        //video(src="/video", controls="controls", style="margin: auto;display: block;padding: 30px;width:500px")
+        //    | 您的浏览器不支持 video 标签。
+    script.
+        var canvas = document.getElementById('cam')
+        var fb = document.getElementById('frame_buffer')
+
+        // Create h264 player
+        var wsavc = new WSAvcPlayer(canvas, "webgl", 1, 35);
+        //expose instance for button callbacks
+        window.wsavc = wsavc;
+
+        //maybe get rid of the ws inside the player?
+        //var uri = "ws://meganeko:3000/videoStream"// + document.location.host;
+        //var uri = "ws://" + document.location.host;
+        //var uri = "ws://localhost:3333/"
+        //wsavc.connect(uri);
+
+        //wsavc.on('message', m=>console.log(m))
+        wsavc.on('disconnected', function () {
+            console.log('WS Disconnected')
+        });
+        wsavc.on('connected', function () {
+            console.log('WS connected');
+        });
+        wsavc.on('frame_shift', function (fbl) {
+            fb.innerText = 'fl: ' + fbl
+        });
+
+        wsavc.on('initalized', function (payload) {
+            console.log('Initialized', payload)
+        });
+
+        wsavc.on('stream_active', function (active) {
+            console.log('Stream is ', active ? 'active' : 'offline')
+        });
+
+
+        wsavc.on('custom_event_from_server', function (event) {
+            console.log('got event from server', event)
+        })
+        wsavc.connect("ws://127.0.0.1:3333");
+
+        //wsavc.connect("ws://127.0.0.1:3333?addr=tcp://127.0.0.1:3001&method=single");
+        //wsavc.connect("ws://127.0.0.1:3002/getVideo");
