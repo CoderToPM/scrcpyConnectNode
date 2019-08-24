@@ -1,0 +1,2 @@
+# scrcpyConnectNode
+scrcpy将Android图像通过视频流的方式给web展现，用于云控云测操作
