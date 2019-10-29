@@ -16,3 +16,8 @@ scrcpy将Android图像通过视频流的方式给web展现，用于云控云测�
 
 二、本地启动node服务来接收数据
 node ./bin/www
+
+三、访问以下网址看效果，测试
+http://localhost:3000
+http://localhost:3000/video1
+http://localhost:3000/video
